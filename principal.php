@@ -21,10 +21,10 @@
     <main role="main" class="container">
 
       <div class="starter-template">
-        <button onclick="location.href='crear.html'" type="button" class="btn btn-primary btn-lg btn-block">Crear usuario</button>     
-        <button onclick="location.href='borrar.html'" type="button" class="btn btn-primary btn-lg btn-block">Borrar usuario</button> 
-        <button onclick="location.href='editar.html'" type="button" class="btn btn-primary btn-lg btn-block">Editar usuario</button> 
-        <button onclick="location.href='mostrar.html'" type="button" class="btn btn-primary btn-lg btn-block">Mostrar usuarios</button> 
+        <button onclick="location.href='crear.php'" type="button" class="btn btn-primary btn-lg btn-block">Crear usuario</button>     
+        <button onclick="location.href='borrar.php'" type="button" class="btn btn-primary btn-lg btn-block">Borrar usuario</button> 
+        <button onclick="location.href='editar.php'" type="button" class="btn btn-primary btn-lg btn-block">Editar usuario</button> 
+        <button onclick="location.href='mostrar.php'" type="button" class="btn btn-primary btn-lg btn-block">Mostrar usuarios</button> 
       </div>
 
       <div class="starter-template">
