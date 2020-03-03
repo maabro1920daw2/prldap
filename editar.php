@@ -1,32 +1,88 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Editar Usuario</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-  </head>
-
-  <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    </nav>
-
+<?php
+$titulo = "Editar Usuario";
+include 'template/header.php';
+?>
     <main role="main" class="container">
+      <div class="row">
+        <div class="col-md-8 unica">
+          <h4 class="mb-3">Editar usuario</h4>
+          <form class="needs-validation" novalidate>
+            <div class="mb-3">
+              <label for="logus">Login usuario</label>
+              <input type="text" class="form-control" id="logus" placeholder="">
+              <div class="invalid-feedback">
+                Please enter a valid email address for shipping updates.
+              </div>
+            </div>
 
+            <div class="mb-3">
+              <label for="unorus">Unidad organizativa del usuario</label>
+              <input type="text" class="form-control" id="unorus" placeholder="">
+              <div class="invalid-feedback">
+                Please enter a valid email address for shipping updates.
+              </div>
+            </div>
+
+            <label class="mb-3">Indica el dato que quieres modificar</label>
+            <div class="row">
+              <div class="col-md-6">
+              <div class="radio">
+                <label><input type="radio" name="optradio">Nombre</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="optradio">Apellido</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="optradio">Título o cargo</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="optradio">Teléfono fijo</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="optradio">Teléfono móvil</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="optradio">Dirección</label>
+              </div>               
+              </div>
+            <div class="col-md-6">
+              <div class="radio">
+                <label><input type="radio" name="optradio">Descripción del usuario</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="optradio">Número identificador del usuario</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="optradio">Número del grupo por defecto del usuario</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="optradio">Directorio personal del usuario</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="optradio">Shell por defecto del usuario</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="optradio">Contraseña del usuario</label>
+              </div>
+            </div>
+            </div>
+            <hr class="mb-4">
+            <div class="mb-3">
+              <label for="nuva">Indica el nuevo valor</label>
+              <input type="text" class="form-control" id="nuva" placeholder="">
+              <div class="invalid-feedback">
+                Please enter a valid email address for shipping updates.
+              </div>
+            </div>
+
+            <div class="row">
+              <button class="btn btn-primary btn-lg btn-block btn-crear" type="submit">Editar</button>
+            </div>
+          </form>
+          <div class="row return">
+            <button onclick="location.href='principal.php'" type="button" class="btn btn-primary btn-lg">Volver</button>
+          </div>
+        </div>
+      </div>
     </main><!-- /.container -->
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <script src="../../assets/js/vendor/popper.min.js"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
-  </body>
-</html>
+<?php include 'template/footer.php' ?>
