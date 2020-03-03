@@ -21,11 +21,6 @@
     <main role="main" class="container">
 
     </main><!-- /.container -->
-    <footer class="footer bg-dark">
-      <div class="container">
-        <span class="text-light">&copy; 2019-2020 - M08UF3 daw2</span>
-      </div>
-    </footer>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
