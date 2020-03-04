@@ -1,41 +1,6 @@
 <?php
-	// Dades de connexió
-	$ldaphost = "ldap://localhost";
-	$ldappass = trim($_GET['ctsnya']); 
-	$ldapadmin= "cn=".trim($_GET['admin']).",dc=fjeclot,dc=net"; 
-	$ldapusr = trim($_GET['usuari']);
-	//
-	// Connectant-se al servidor openLDAP
-	$ldapconn = ldap_connect($ldaphost) or die("No s'ha pogut establir una connexió amb el servidor openLDAP.");
-	//
-	//Versió del servidor i protocol
-	ldap_set_option($ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3);
-	//
-	//Autenticació
-	if ($ldapconn) {
-		// Autenticant-se en el servidor openLDAP
-		$ldapbind = ldap_bind($ldapconn, $ldapadmin, $ldappass);
-
-		// Accedint a les dades de la BD LDAP
-		if ($ldapbind) {
-			$search = ldap_search($ldapconn, "dc=fjeclot,dc=net", "uid=".$ldapusr);
-			$info = ldap_get_entries($ldapconn, $search);
-			//Ara, visualitzarem algunes de les dades de l'usuari:
-			for ($i=0; $i<$info["count"]; $i++)
-			{
-				echo "Nom: ".$info[$i]["cn"][0]. "<br />";
-				echo "Títol: ".$info[$i]["title"][0]. "<br />";
-				echo "Telèfon fixe: ".$info[$i]["telephonenumber"][0]. "<br />";
-				echo "Adreça postal: ".$info[$i]["postaladdress"][0]. "<br />";
-				echo "Telèfon mòbil: ".$info[$i]["mobile"][0]. "<br />";
-				echo "Descripció: ".$info[$i]["description"][0]. "<br />";
-			} 
-		} 
-		else {
-			header "error_usuari.php";
-		}
-	}
-	class ldap{
+	
+	class Ldap{
 		public $ldaphost;
     	public $ldapconn;
     	public $ldapbind;
@@ -44,9 +9,11 @@
 	       	$this->ldapconn=ldap_connect($ldaphost) or die("No s'ha pogut establir una connexió amb el servidor openLDAP.");
 	       	ldap_set_option($ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3);
    		}
-   		function autenticacion($ldapadmin2, $ldappass){
-   			$ldapadmin= "cn=".$ldapadmin2.",dc=fjeclot,dc=net"; 
-   			$this->ldapbind = ldap_bind($this->ldapconn, $ldapadmin, $ldappass);
+   		function autenticacion($ldapadmin, $ldappass){
+   			$dn= "cn=".$ldapadmin.",dc=fjeclot,dc=net"; 
+   			$this->ldapbind = ldap_bind($this->ldapconn, $dn, $ldappass);
+   			if(!$this->ldapbind ) header('Location: error.php');
+   			else header('Location: principal.php');
    		}
 
    		function buscarUsuari($ldapusr){
@@ -65,7 +32,8 @@
 				} 
 			} 
 			else {
-				header "error_usuari.php";
+				$_SESSION["error"]="Contraseña o nombre incorrecto";
+				header('Location: error.php');
 			}
    		}
 
@@ -89,11 +57,11 @@
 			 $r = ldap_add($this->ldapconn, $dn, $info);
 			 if(!$r) {
 			 	$_SESSION["error"]="Error creando usuario";
-			 	header "error.php";
+			 	header('Location: error.php');
 			 }
 			 else {
 			 	$_SESSION["ok"]="El usuario se ha creado correctamente";
-			 	header "ok.php";
+			 	header('Location: ok.php');
 			 }
 
    		}
@@ -104,11 +72,11 @@
 			$r=ldap_modify($this->ldapconn, $dn, $values);
 			if(!$r) {
 			 	$_SESSION["error"]="Error modificando usuario";
-			 	header "error.php";
+			 	header('Location: error.php');
 			 }
 			 else {
 			 	$_SESSION["ok"]="El usuario se ha modificado correctamente";
-			 	header "ok.php";
+			 	header('Location: ok.php');
 			 }
    		}
 
@@ -117,11 +85,12 @@
    			$r=ldap_delete($this->ldapconn,$dn);
    			if(!$r) {
 			 	$_SESSION["error"]="Error borrando usuario";
-			 	header "error.php";
+			 	header('Location: error.php');
 			 }
 			 else {
 			 	$_SESSION["ok"]="El usuario se ha borrado correctamente";
-			 	header "ok.php";
+			 	header('Location: ok.php');
+
 			 }
    		}
 		// Accedint a les dades de la BD LDAP
