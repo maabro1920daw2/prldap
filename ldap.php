@@ -85,6 +85,7 @@
 			$info["uidNumber"]= $uid;
 			$info["homeDirectory"]= $dir;
 			$info["description"]= $desc;
+			$info["password"]=$pass;
 			 $r = ldap_add($this->ldapconn, $dn, $info);
 			 if(!$r) {
 			 	$_SESSION["error"]="Error creando usuario";
@@ -97,6 +98,32 @@
 
    		}
 
+   		function editarUsuario($lou,$uo,$variable,$valor){
+   			$dn= "uid=".$lou.",ou=".$uo.",dc=fjeclot,dc=net";
+   			$values[$variable] = $valor;
+			$r=ldap_modify($this->ldapconn, $dn, $values);
+			if(!$r) {
+			 	$_SESSION["error"]="Error modificando usuario";
+			 	header "error.php";
+			 }
+			 else {
+			 	$_SESSION["ok"]="El usuario se ha modificado correctamente";
+			 	header "ok.php";
+			 }
+   		}
+
+   		function borrarUsuario($lou,$uo){
+   			$dn= "uid=".$lou.",ou=".$uo.",dc=fjeclot,dc=net";
+   			$r=ldap_delete($this->ldapconn,$dn);
+   			if(!$r) {
+			 	$_SESSION["error"]="Error borrando usuario";
+			 	header "error.php";
+			 }
+			 else {
+			 	$_SESSION["ok"]="El usuario se ha borrado correctamente";
+			 	header "ok.php";
+			 }
+   		}
 		// Accedint a les dades de la BD LDAP
 			
    		function __destruct() {
