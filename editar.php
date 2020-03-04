@@ -27,42 +27,42 @@ include 'template/header.php';
             <div class="row">
               <div class="col-md-6">
               <div class="radio">
-                <label><input type="radio" name="optradio">Nombre</label>
+                <label><input id="givenName" type="radio" name="optradio">Nombre</label>
               </div>
               <div class="radio">
-                <label><input type="radio" name="optradio">Apellido</label>
+                <label><input id="sn" type="radio" name="optradio">Apellido</label>
               </div>
               <div class="radio">
-                <label><input type="radio" name="optradio">Título o cargo</label>
+                <label><input id="title" type="radio" name="optradio">Título o cargo</label>
               </div>
               <div class="radio">
-                <label><input type="radio" name="optradio">Teléfono fijo</label>
+                <label><input id="telephoneNumber" type="radio" name="optradio">Teléfono fijo</label>
               </div>
               <div class="radio">
-                <label><input type="radio" name="optradio">Teléfono móvil</label>
+                <label><input id="mobile" type="radio" name="optradio">Teléfono móvil</label>
               </div>
               <div class="radio">
-                <label><input type="radio" name="optradio">Dirección</label>
+                <label><input id="postalAddress" type="radio" name="optradio">Dirección</label>
               </div>               
               </div>
             <div class="col-md-6">
               <div class="radio">
-                <label><input type="radio" name="optradio">Descripción del usuario</label>
+                <label><input id="description" type="radio" name="optradio">Descripción del usuario</label>
               </div>
               <div class="radio">
-                <label><input type="radio" name="optradio">Número identificador del usuario</label>
+                <label><input id="uidNumber" type="radio" name="optradio">Número identificador del usuario</label>
               </div>
               <div class="radio">
-                <label><input type="radio" name="optradio">Número del grupo por defecto del usuario</label>
+                <label><input id="gidNumber" type="radio" name="optradio">Número del grupo por defecto del usuario</label>
               </div>
               <div class="radio">
-                <label><input type="radio" name="optradio">Directorio personal del usuario</label>
+                <label><input id="homeDirectory" type="radio" name="optradio">Directorio personal del usuario</label>
               </div>
               <div class="radio">
-                <label><input type="radio" name="optradio">Shell por defecto del usuario</label>
+                <label><input id="loginShell" type="radio" name="optradio">Shell por defecto del usuario</label>
               </div>
               <div class="radio">
-                <label><input type="radio" name="optradio">Contraseña del usuario</label>
+                <label><input id="password" type="radio" name="optradio">Contraseña del usuario</label>
               </div>
             </div>
             </div>

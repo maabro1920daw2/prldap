@@ -9,15 +9,15 @@ include 'template/header.php';
           <form class="needs-validation" novalidate>
             <div class="row">
               <div class="col-md-6 mb-3">
-                <label for="firstName">Nombre</label>
-                <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+                <label for="givenName">Nombre</label>
+                <input type="text" class="form-control" id="givenName" placeholder="" value="" required>
                 <div class="invalid-feedback">
                   Valid first name is required.
                 </div>
               </div>
               <div class="col-md-6 mb-3">
-                <label for="lastName">Apellido</label>
-                <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+                <label for="sn">Apellido</label>
+                <input type="text" class="form-control" id="sn" placeholder="" value="" required>
                 <div class="invalid-feedback">
                   Valid last name is required.
                 </div>
@@ -25,84 +25,84 @@ include 'template/header.php';
             </div>
 
             <div class="mb-3">
-              <label for="titulo">Título o cargo</label>
-              <input type="text" class="form-control" id="titulo" placeholder="">
+              <label for="title">Título o cargo</label>
+              <input type="text" class="form-control" id="title" placeholder="">
               <div class="invalid-feedback">
                 Please enter a valid email address for shipping updates.
               </div>
             </div>
 
             <div class="mb-3">
-              <label for="teflf">Teléfono fijo</label>
-              <input type="text" class="form-control" id="teflf" placeholder="">
+              <label for="telephoneNumber">Teléfono fijo</label>
+              <input type="text" class="form-control" id="telephoneNumber" placeholder="">
               <div class="invalid-feedback">
                 Please enter a valid email address for shipping updates.
               </div>
             </div>
 
             <div class="mb-3">
-              <label for="teflm">Teléfono móvil</label>
-              <input type="text" class="form-control" id="teflm" placeholder="">
+              <label for="mobile">Teléfono móvil</label>
+              <input type="text" class="form-control" id="mobile" placeholder="">
               <div class="invalid-feedback">
                 Please enter a valid email address for shipping updates.
               </div>
             </div>
 
             <div class="mb-3">
-              <label for="direc">Dirección</label>
-              <input type="text" class="form-control" id="direc" placeholder="">
+              <label for="postalAddress">Dirección</label>
+              <input type="text" class="form-control" id="postalAddress" placeholder="">
               <div class="invalid-feedback">
                 Please enter a valid email address for shipping updates.
               </div>
             </div>
 
             <div class="mb-3">
-              <label for="descu">Descripción del usuario</label>
-              <input type="text" class="form-control" id="descu" placeholder="">
+              <label for="description">Descripción del usuario</label>
+              <input type="text" class="form-control" id="description" placeholder="">
               <div class="invalid-feedback">
                 Please enter a valid email address for shipping updates.
               </div>
             </div>
 
             <div class="mb-3">
-              <label for="logus">Login usuario</label>
-              <input type="text" class="form-control" id="logus" placeholder="">
+              <label for="uid">Login usuario</label>
+              <input type="text" class="form-control" id="uid" placeholder="">
               <div class="invalid-feedback">
                 Please enter a valid email address for shipping updates.
               </div>
             </div>
 
             <div class="mb-3">
-              <label for="unorus">Unidad organizativa del usuario</label>
-              <input type="text" class="form-control" id="unorus" placeholder="" required>
+              <label for="ou">Unidad organizativa del usuario</label>
+              <input type="text" class="form-control" id="ou" placeholder="" required>
               <div class="invalid-feedback">
                 Please enter your shipping address.
               </div>
             </div>
 
             <div class="mb-3">
-              <label for="nuidus">Número identificador del usuario</label>
-              <input type="text" class="form-control" id="nuidus" placeholder="">
+              <label for="uidNumber">Número identificador del usuario</label>
+              <input type="text" class="form-control" id="uidNumber" placeholder="">
             </div>
 
             <div class="mb-3">
-              <label for="nugudeus">Número del grupo por defecto del usuario</label>
-              <input type="text" class="form-control" id="nugudeus" placeholder="">
+              <label for="gidNumber">Número del grupo por defecto del usuario</label>
+              <input type="text" class="form-control" id="gidNumber" placeholder="">
             </div>
 
             <div class="mb-3">
-              <label for="dipeus">Directorio personal del usuario</label>
-              <input type="text" class="form-control" id="dipeus" placeholder="">
+              <label for="homeDirectory">Directorio personal del usuario</label>
+              <input type="text" class="form-control" id="homeDirectory" placeholder="">
             </div>
 
             <div class="mb-3">
-              <label for="shdeus">Shell por defecto del usuario</label>
-              <input type="text" class="form-control" id="shdeus" placeholder="">
+              <label for="loginShell">Shell por defecto del usuario</label>
+              <input type="text" class="form-control" id="loginShell" placeholder="">
             </div>
 
             <div class="mb-3">
-              <label for="cous">Contraseña del usuario</label>
-              <input type="password" class="form-control" id="cous" placeholder="">
+              <label for="password">Contraseña del usuario</label>
+              <input type="password" class="form-control" id="password" placeholder="">
             </div>
 
             <div class="row">

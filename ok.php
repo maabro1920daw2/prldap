@@ -1,5 +1,5 @@
 <?php
-$titulo = "Error";
+$titulo = "Ok";
 include 'template/header.php';
 ?>
 
