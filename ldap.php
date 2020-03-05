@@ -1,5 +1,5 @@
 <?php
-	
+	session_start();
 	class Ldap{
 		public $ldaphost;
     	public $ldapconn;
@@ -12,7 +12,10 @@
    		function autenticacion($ldapadmin, $ldappass){
    			$dn= "cn=".$ldapadmin.",dc=fjeclot,dc=net"; 
    			$this->ldapbind = ldap_bind($this->ldapconn, $dn, $ldappass);
-   			if(!$this->ldapbind ) header('Location: error.php');
+   			if(!$this->ldapbind ) {
+   				$_SESSION["error"]="Contraseña o nombre incorrecto";
+   				header('Location: error.php');
+   			}
    			else header('Location: principal.php');
    		}
 
@@ -32,7 +35,7 @@
 				} 
 			} 
 			else {
-				$_SESSION["error"]="Contraseña o nombre incorrecto";
+				$_SESSION["error"]="Usuario no existe";
 				header('Location: error.php');
 			}
    		}

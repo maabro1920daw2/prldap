@@ -12,7 +12,7 @@ include 'template/header.php';
       </div>
 
       <div class="row return">
-        <button onclick="location.href='principal.php'" type="button" class="btn btn-primary btn-lg">Volver</button>
+        <button onclick="location.href='index.php'" type="button" class="btn btn-primary btn-lg">Volver</button>
       </div>
 
     </main><!-- /.container -->
