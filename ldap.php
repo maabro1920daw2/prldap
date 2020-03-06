@@ -4,13 +4,14 @@
 		public $ldaphost;
     	public $ldapconn;
     	public $ldapbind;
+    	
     	function __construct($ldaphost) {
 	       	$this->ldaphost=$ldaphost;
 	       	$this->ldapconn=ldap_connect($ldaphost) or die("No s'ha pogut establir una connexió amb el servidor openLDAP.");
 	       	ldap_set_option($this->ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3);
    		}
    		function autenticacion($ldapadmin, $ldappass){
-   			
+   			$this->ldappass=$ldappass;
    			$dn= "cn=".$ldapadmin.",dc=fjeclot,dc=net"; 
    			$this->ldapbind = ldap_bind($this->ldapconn, $dn, $ldappass);
    			if(!$this->ldapbind ) {
@@ -39,8 +40,14 @@
    		}
 
    		function crearUsuario($firstName,$lastName,$titulo,$telf,$movil,$direc,$desc,$lou,$uo,$uid,$guid,$dir,$shell,$pass){
-	   		
-	   		$dn= "cn=".$firstName." ".$lastName.",dc=fjeclot,dc=net";
+		
+			//$ldaphost="ldap://localhost";
+   			//$ldapconn = ldap_connect($ldaphost) or die(header('Location: loginadminerror.php'));
+   			//ldap_set_option($ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3);
+		if ($this->ldapconn) {
+
+			$ldapbind = ldap_bind($this->ldapconn, "cn=admin,dc=fjeclot,dc=net", $pass);
+	   		$dn= "uid=".$lou.",ou=".$uo.",dc=fjeclot,dc=net";
 			$info["objectclass"][0] = 'top';
 		    $info["objectclass"][1] = 'person';
 		    $info["objectclass"][2] = 'organizationalPerson';
@@ -65,18 +72,15 @@
 			 $r = ldap_add($this->ldapconn,$dn, $info);
 			 $s="";
 			 if(!$r) {
-			 	foreach($info as $key => $value){
-			 	$s=$s." ".$key."=".$value." ";
 			 	
-			 }
-			 	$_SESSION["error"]=$s;
+			 	$_SESSION["error"]="Error creando un usuario";
 			 	header('Location: error.php');
 			 }
 			 else {
 			 	$_SESSION["ok"]="El usuario se ha creado correctamente";
 			 	header('Location: ok.php');
 			 }
-
+}
    		}
 
    		function editarUsuario($lou,$uo,$variable,$valor){
@@ -94,6 +98,9 @@
    		}
 
    		function borrarUsuario($lou,$uo){
+   			if ($this->ldapconn) {
+
+			$ldapbind = ldap_bind($this->ldapconn, "cn=admin,dc=fjeclot,dc=net", "fjeclot");
    			$dn= "uid=".$lou.",ou=".$uo.",dc=fjeclot,dc=net";
    			$r=ldap_delete($this->ldapconn,$dn);
    			if(!$r) {
@@ -104,12 +111,12 @@
 			 	$_SESSION["ok"]="El usuario se ha borrado correctamente";
 			 	header('Location: ok.php');
 
-			 }
+			 }}
    		}
 		// Accedint a les dades de la BD LDAP
 			
    		function __destruct() {
-       		ldap_close($this->ldaphost);
+       		ldap_close($this->ldapconn);
    		}
 	}
 	

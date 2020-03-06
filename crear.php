@@ -112,7 +112,7 @@ if (isset($_POST["submit"])){
             </div>
 
             <div class="mb-3">
-              <label for="password">Contraseña del usuario</label>
+              <label for="password">Contraseña del admin</label>
               <input name="pass" type="password" class="form-control" id="password" placeholder="">
             </div>
 
