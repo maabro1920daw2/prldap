@@ -1,17 +1,22 @@
 <?php
 session_start();
-$titulo = "Error";
+
+$titulo = "Ok";
+
 include 'template/header.php';
 
 ?>
 
     <main role="main" class="container" >
-      <?php
-      	echo "<p id=\"errorP\">".$_SESSION["ok"]."</p>";
-      ?>
-          <div class="row return">
+
+    	<div id="errorP" class="row alert alert-success">
+	      <?php
+	        echo "<p>".$_SESSION["ok"]."</p>";
+	      ?>        
+      	</div>
+        <div class="row return">
             <button onclick="location.href='index.php'" type="button" class="btn btn-primary btn-lg">Volver</button>
-          </div>
+        </div>
     </main>
 
 <?php include 'template/footer.php' ?>
