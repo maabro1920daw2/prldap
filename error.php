@@ -2,6 +2,9 @@
 session_start();
 $titulo = "Error";
 include 'template/header.php';
+echo "<script>";
+  			echo "console.log(".error_log("AQUI").")";
+  			echo "</script>";
 ?>
 
     <main role="main" class="container" >

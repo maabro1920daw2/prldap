@@ -1,5 +1,5 @@
 <?php
-	session_start();
+	
 	class Ldap{
 		public $ldaphost;
     	public $ldapconn;
@@ -7,9 +7,10 @@
     	function __construct($ldaphost) {
 	       	$this->ldaphost=$ldaphost;
 	       	$this->ldapconn=ldap_connect($ldaphost) or die("No s'ha pogut establir una connexió amb el servidor openLDAP.");
-	       	ldap_set_option($ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3);
+	       	ldap_set_option($this->ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3);
    		}
    		function autenticacion($ldapadmin, $ldappass){
+   			
    			$dn= "cn=".$ldapadmin.",dc=fjeclot,dc=net"; 
    			$this->ldapbind = ldap_bind($this->ldapconn, $dn, $ldappass);
    			if(!$this->ldapbind ) {
@@ -20,7 +21,7 @@
    		}
 
    		function buscarUsuari($ldapusr){
-   			if ($this->ldapbind) {
+   			
 				$search = ldap_search($ldapconn, "dc=fjeclot,dc=net", "uid=".$ldapusr);
 				$info = ldap_get_entries($this->ldapconn, $search);
 				//Ara, visualitzarem algunes de les dades de l'usuari:
@@ -33,33 +34,42 @@
 					echo "Telèfon mòbil: ".$info[$i]["mobile"][0]. "<br />";
 					echo "Descripció: ".$info[$i]["description"][0]. "<br />";
 				} 
-			} 
-			else {
-				$_SESSION["error"]="Usuario no existe";
-				header('Location: error.php');
-			}
+			
+			
    		}
 
    		function crearUsuario($firstName,$lastName,$titulo,$telf,$movil,$direc,$desc,$lou,$uo,$uid,$guid,$dir,$shell,$pass){
-	   		$dn= "uid=".$lou.",ou=".$uo.",dc=fjeclot,dc=net";
-			$info["objectClass"]="persona";
+	   		
+	   		$dn= "cn=".$firstName." ".$lastName.",dc=fjeclot,dc=net";
+			$info["objectclass"][0] = 'top';
+		    $info["objectclass"][1] = 'person';
+		    $info["objectclass"][2] = 'organizationalPerson';
+		    $info["objectclass"][3] = 'inetOrgPerson';
+		    $info["objectclass"][4] = 'posixAccount';
+		    $info["objectclass"][5] = 'shadowAccount';
 			$info["uid"]= $lou;
 			$info["cn"]= $firstName." ".$lastName;
 			$info["sn"]=$lastName;
-			$info["givenName"]= $firstName;
+			$info["givenname"]= $firstName;
 			$info["title"]= $titulo;
-			$info["telephoneNumber"]=$telf;
+			$info["telephonenumber"]=$telf;
 			$info["mobile"]=$movil;
-			$info["postalAddress"]= $direc;
-			$info["loginShell"]= $shell;
-			$info["gidNumber"]=$guid;
-			$info["uidNumber"]= $uid;
-			$info["homeDirectory"]= $dir;
+			$info["postaladdress"]= $direc;
+			$info["loginshell"]= '/bin/bash';
+			$info["gidnumber"]=$guid;
+			$info["uidnumber"]= $uid;
+			$info["homedirectory"]= '/home/verlos/';
 			$info["description"]= $desc;
-			$info["password"]=$pass;
-			 $r = ldap_add($this->ldapconn, $dn, $info);
+			//$info["password"]=$pass;
+			
+			 $r = ldap_add($this->ldapconn,$dn, $info);
+			 $s="";
 			 if(!$r) {
-			 	$_SESSION["error"]="Error creando usuario";
+			 	foreach($info as $key => $value){
+			 	$s=$s." ".$key."=".$value." ";
+			 	
+			 }
+			 	$_SESSION["error"]=$s;
 			 	header('Location: error.php');
 			 }
 			 else {
