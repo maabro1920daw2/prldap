@@ -1,4 +1,6 @@
 <?php
+session_start();
+include 'ldap.php';
 $titulo = "Buscar Usuario";
 include 'template/header.php';
 ?>
@@ -7,10 +9,10 @@ include 'template/header.php';
       <div class="row">
         <div class="col-md-8 unica">
           <h4 class="mb-3">Buscar usuario</h4>
-          <form class="needs-validation" novalidate>
+          <form class="needs-validation" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
             <div class="mb-3">
               <label for="logus">Login usuario</label>
-              <input type="text" class="form-control" id="logus" placeholder="">
+              <input name="logus" type="text" class="form-control" id="logus" placeholder="">
               <div class="invalid-feedback">
                 Please enter a valid email address for shipping updates.
               </div>
@@ -25,9 +27,18 @@ include 'template/header.php';
             </div>
 
             <div class="row">
-              <button class="btn btn-primary btn-lg btn-block btn-crear" type="submit">Buscar</button>
+              <button name="submit" class="btn btn-primary btn-lg btn-block btn-crear" type="submit">Buscar</button>
             </div>
           </form>
+
+          <?php 
+            $b = new Ldap("ldap://localhost");
+            if(isset($_POST["submit"])) {
+              $b->buscarUsuari($_POST["logus"]);
+            }
+
+          ?>
+
           <div class="row return">
             <button onclick="location.href='principal.php'" type="button" class="btn btn-primary btn-lg">Volver</button>
           </div>
