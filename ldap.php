@@ -17,12 +17,12 @@
    			if(!$this->ldapbind ){
    				if($ldapadmin != "admin"){
    					$_SESSION["error"]="Usuario incorrecto.";
-   				}elseif ($ldappass != "fjeclot") {
+   				}elseif($ldappass != "fjeclot") {
    					$_SESSION["error"]="Contraseña incorrecta.";
    				}else{
    					$_SESSION["error"]="No se ha podido conectar con el servidor openLDAP.";
    				}
-
+   					
    				header('Location: error.php');  				
    			}
    			else header('Location: principal.php');

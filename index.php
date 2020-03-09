@@ -7,7 +7,7 @@
 </head>
  <body class="text-center">
 <?php 
-
+session_start();
 include 'ldap.php';
 
 $l1=new Ldap("ldap://localhost");
