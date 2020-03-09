@@ -1,10 +1,14 @@
 <?php
 session_start();
+
 $titulo = "Ok";
+
 include 'template/header.php';
+
 ?>
 
     <main role="main" class="container" >
+
     	<div id="errorP" class="row alert alert-success">
 	      <?php
 	        echo "<p>".$_SESSION["ok"]."</p>";

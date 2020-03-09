@@ -4,12 +4,14 @@
 		public $ldaphost;
     	public $ldapconn;
     	public $ldapbind;
+    	
     	function __construct($ldaphost) {
 	       	$this->ldaphost=$ldaphost;
 	       	$this->ldapconn=ldap_connect($ldaphost) or die("No se ha podido conectar con el servidor openLDAP.");
 	       	ldap_set_option($this->ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3);
    		}
    		function autenticacion($ldapadmin, $ldappass){
+   			$this->ldappass=$ldappass;
    			$dn= "cn=".$ldapadmin.",dc=fjeclot,dc=net"; 
    			$this->ldapbind = ldap_bind($this->ldapconn, $dn, $ldappass);
    			if(!$this->ldapbind ){
@@ -91,6 +93,7 @@
 			 		header('Location: ok.php');
 			 	}
 			}
+
    		}
 
    		function editarUsuario($lou,$uo,$variable,$valor){
@@ -125,9 +128,11 @@
 			 	$_SESSION["ok"]="El usuario se ha borrado correctamente";
 			 	header('Location: ok.php');
 
+
 			 }
 			}
    		}	
+
    		function __destruct() {
        		ldap_close($this->ldapconn);
    		}

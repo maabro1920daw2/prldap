@@ -7,12 +7,12 @@
 </head>
  <body class="text-center">
 <?php 
-session_start();
+
 include 'ldap.php';
+
 $l1=new Ldap("ldap://localhost");
 if (isset($_POST["submit"])){
   $l1->autenticacion($_POST["login"],$_POST["password"]);
-  
 }
 ?>
     <form class="form-signin" method="POST"  action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
