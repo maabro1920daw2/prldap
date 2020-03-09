@@ -6,34 +6,50 @@
     	public $ldapbind;
     	function __construct($ldaphost) {
 	       	$this->ldaphost=$ldaphost;
-	       	$this->ldapconn=ldap_connect($ldaphost) or die("No s'ha pogut establir una connexió amb el servidor openLDAP.");
+	       	$this->ldapconn=ldap_connect($ldaphost) or die("No se ha podido conectar con el servidor openLDAP.");
 	       	ldap_set_option($this->ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3);
    		}
    		function autenticacion($ldapadmin, $ldappass){
    			$dn= "cn=".$ldapadmin.",dc=fjeclot,dc=net"; 
    			$this->ldapbind = ldap_bind($this->ldapconn, $dn, $ldappass);
-   			if(!$this->ldapbind ) header('Location: error.php');
+   			if(!$this->ldapbind ){
+   				if($ldapadmin != "admin"){
+   					$_SESSION["error"]="Usuario incorrecto.";
+   				}elseif ($ldappass != "fjeclot") {
+   					$_SESSION["error"]="Contraseña incorrecta.";
+   				}else{
+   					$_SESSION["error"]="No se ha podido conectar con el servidor openLDAP.";
+   				}
+
+   				header('Location: error.php');  				
+   			}
    			else header('Location: principal.php');
    		}
 
    		function buscarUsuari($ldapusr){   			
 			$search = ldap_search($this->ldapconn, "dc=fjeclot,dc=net", "uid=".$ldapusr);
 			$info = ldap_get_entries($this->ldapconn, $search);
-			$this->__destruct();
+			//$this->__destruct();
+			ldap_close($this->ldapconn);
 			if($info["count"] == 0){
 				$_SESSION["error"]="Usuario no encontrado.";
 				header('Location: error.php');
 			} else {			 	
 				echo "<ul class=\"list-group lista-el\">";
 				for ($i=0; $i<$info["count"]; $i++){
-					echo "<li class=\"list-group-item\"><strong>Nombre: </strong>".$info[$i]["cn"][0]. "</li>";
+					echo "<li class=\"list-group-item\"><strong>Nombre completo: </strong>".$info[$i]["cn"][0]. "</li>";
+					echo "<li class=\"list-group-item\"><strong>Nombre: </strong>".$info[$i]["givenname"][0]. "</li>";
+					echo "<li class=\"list-group-item\"><strong>Apellido: </strong>".$info[$i]["sn"][0]. "</li>";
 					echo "<li class=\"list-group-item\"><strong>Título: </strong>".$info[$i]["title"][0]. "</li>";
 					echo "<li class=\"list-group-item\"><strong>Descripció: </strong>".$info[$i]["description"][0]. "</li>";
 					echo "<li class=\"list-group-item\"><strong>Teléfono fijo: </strong>".$info[$i]["telephonenumber"][0]. "</li>";
 					echo "<li class=\"list-group-item\"><strong>Dirección postal: </strong>".$info[$i]["postaladdress"][0]. "</li>";
 					echo "<li class=\"list-group-item\"><strong>Teléfono móvil: </strong>".$info[$i]["mobile"][0]. "</li>";
 					echo "<li class=\"list-group-item\"><strong>Directorio home: </strong>".$info[$i]["homedirectory"][0]. "</li>";
-					echo "<li class=\"list-group-item\"><strong>Directorio shell: </strong>".$info[$i]["loginshell"][0]. "</li>";					
+					echo "<li class=\"list-group-item\"><strong>Número identificador del usuario: </strong>".$info[$i]["uidnumber"][0]. "</li>";
+					echo "<li class=\"list-group-item\"><strong>Número del grupo por defecto del usuario: </strong>".$info[$i]["gidnumber"][0]. "</li>";
+					echo "<li class=\"list-group-item\"><strong>Directorio shell: </strong>".$info[$i]["loginshell"][0]. "</li>";
+					echo "<li class=\"list-group-item\"><strong>Login usuario: </strong>".$info[$i]["uid"][0]. "</li>";				
 				}
 				echo "</ul>";
 			}		
